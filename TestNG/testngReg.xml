@@ -1,0 +1,7 @@
+<suite name="DebugSuite" verbose="2">
+  <test name="SanityTest">
+    <classes>
+      <class name="TestCases.SanityCheck"/>
+    </classes>
+  </test>
+</suite>
