@@ -24,7 +24,7 @@ public class ExtentManager implements ITestListener{
 		spark=new ExtentSparkReporter(System.getProperty("user.dir")+File.separator+"reports"+File.separator+date+".html");
 		spark.config().setDocumentTitle("ExtentReport");
 		spark.config().setReportName("ListnersReport");
-		spark.config().setTheme(Theme.DARK);
+		spark.config().setTheme(Theme.STANDARD);
 		
 		reports=new ExtentReports();
 		reports.attachReporter(spark);
