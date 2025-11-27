@@ -21,7 +21,7 @@ public class TestCases extends BaseClass{
 	
 
 	
-	@Test(groups = "smoke", dataProvider = "getData")
+	@Test(groups = "smoke", dataProvider = "getData",dataProviderClass = util.DataReader.class)
 	public void loginTest(HashMap<String, Object> input) throws InterruptedException {
 	    System.out.println(">>> loginTest started");
 	    System.out.println("Email: " + input.get("email"));
@@ -35,7 +35,7 @@ public class TestCases extends BaseClass{
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Test(groups= {"regression"},dataProvider="getData")
+	@Test(groups= {"regression"},dataProvider="getData",dataProviderClass = util.DataReader.class)
 	public void addProduct(HashMap<String,Object> input) {
 		LandingPage landingPage=new LandingPage(getDriver());
 		productPage=landingPage.loginPage((String)input.get("email"),(String)input.get("password"));

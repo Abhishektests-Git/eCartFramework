@@ -5,9 +5,9 @@
     <classes>
       <class name="TestCases.TestCases">
         <methods>
-          <include name="tearDown"/>
-          <include name="loginTest"/>
           <include name="startApp"/>
+          <include name="tearDown"/>
+          <include name="addProduct"/>
         </methods>
       </class> <!-- TestCases.TestCases -->
     </classes>

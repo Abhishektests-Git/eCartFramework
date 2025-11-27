@@ -4,7 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
+
+import org.testng.annotations.DataProvider;
+
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConfigLoader {
 	private static Properties prop=new Properties();
@@ -29,4 +38,7 @@ public class ConfigLoader {
 		}
 		return prop.getProperty(propertyName);
 	}
+	
+	
+
 }

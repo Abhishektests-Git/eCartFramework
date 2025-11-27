@@ -2,37 +2,26 @@ package basePackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pageObjects.LandingPage;
 import util.ConfigLoader;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
 
 public class BaseClass {
 
-    // ✅ Thread-safe WebDriver
+    //  Thread-safe WebDriver
     private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 //    private String browser=configLoader.getProperty("browser");
 //     private String appURL=configLoader.getProperty("appURL");
 //    LandingPage landingPage;
 
-    // ✅ Setup driver per thread
+    //  Setup driver per thread
     public void setupDriver() {
     	 WebDriver localDriver;
-    	 String browser =ConfigLoader.getProperty("browser");
+    	 String browser =ConfigLoader.getProperty("browser"); //configLoader is defined in a utility class
     	 if(browser.equalsIgnoreCase("chrome")) {
         localDriver = new ChromeDriver();
     	 }
@@ -42,14 +31,14 @@ public class BaseClass {
         getDriver().manage().window().maximize();
     }
 
-    // ✅ Accessor for thread-local driver
+    // Accessor for thread-local driver
     public WebDriver getDriver() {
         return threadDriver.get();
     }
 
-    // ✅ Setup before each test method
+    // Setup before each test method
     @BeforeMethod(alwaysRun = true)
-    public void startApp(ITestContext context) {
+    public void startApp(ITestContext context) {//we put itestcontext here so that we can access drivers in screenshot function in extent report.
     	ConfigLoader.loadConfig();
         setupDriver();
         context.setAttribute("driver", getDriver());
@@ -57,7 +46,7 @@ public class BaseClass {
         landingPage.goTo();
     }
 
-    // ✅ Teardown after each test method
+    // Teardown after each test method
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         if (getDriver() != null) {
@@ -66,27 +55,7 @@ public class BaseClass {
         }
     }
 
-    // ✅ JSON data reader
-    public List<HashMap<String, Object>> getJsonData(String filePath)
-            throws StreamReadException, DatabindException, IOException {
-        File file = new File(filePath);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(file, new TypeReference<List<HashMap<String, Object>>>() {});
-    }
 
-    // ✅ DataProvider for test data
-    @DataProvider(parallel = true) // ✅ enable parallel data-driven tests
-    public Object[][] getData() throws StreamReadException, DatabindException, IOException {
-        System.out.println("Reading data from JSON");
-        List<HashMap<String, Object>> data = getJsonData(System.getProperty("user.dir")
-                + File.separator + "TestData" + File.separator + "PurchaseOrder.json");
-
-        Object[][] obj = new Object[data.size()][1];
-        for (int i = 0; i < data.size(); i++) {
-            obj[i][0] = data.get(i);
-        }
-        return obj;
-    }
 }
 
 

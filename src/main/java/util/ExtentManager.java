@@ -19,7 +19,7 @@ public class ExtentManager implements ITestListener{
 	ExtentReports reports;
 	ThreadLocal<ExtentTest> threadLocalTest=new ThreadLocal<>();
 	public  void onStart(ITestContext context) {
-		System.out.println("Extent report is started");
+//		System.out.println("Extent report is started");
 		String date=new SimpleDateFormat("yyyyMMdddd HHmmss").format(new Date());
 		spark=new ExtentSparkReporter(System.getProperty("user.dir")+File.separator+"reports"+File.separator+date+".html");
 		spark.config().setDocumentTitle("ExtentReport");
